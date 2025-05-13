@@ -12,12 +12,34 @@
       margin: 0;
       overflow-x: hidden;
     }
+
+    /* Animated SBC Banner */
+    .banner {
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em;
+      background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
+      color: white;
+      animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
     #guestInput {
       padding: 0.5em;
       font-size: 1.2em;
       width: 90%;
       max-width: 300px;
     }
+
     #suggestions {
       margin: 0 auto;
       width: 90%;
@@ -32,22 +54,27 @@
       background-color: white;
       z-index: 999;
     }
+
     .suggestion-item {
       padding: 0.5em;
       cursor: pointer;
     }
+
     .suggestion-item:hover {
       background-color: #f0f0f0;
     }
+
     #result {
       margin-top: 1em;
       font-size: 1.5em;
       color: green;
     }
+
     .input-wrapper {
       position: relative;
       display: inline-block;
     }
+
     .evening-message {
       margin-top: 3em;
       font-size: 2em;
@@ -58,12 +85,17 @@
       display: inline-block;
       padding: 1em;
     }
+
     @media (max-width: 600px) {
+      .banner {
+        font-size: 1.5em;
+      }
       .evening-message {
         font-size: 1.5em;
         padding: 0.5em;
       }
     }
+
     canvas {
       position: fixed;
       top: 0;
@@ -74,6 +106,8 @@
   </style>
 </head>
 <body>
+  <div class="banner">🎓 SBC Formal 2025 🎉</div>
+
   <h1>Find Your Table</h1>
   <p>Enter Guest Name:</p>
   <div class="input-wrapper">
@@ -90,22 +124,21 @@
   <!-- Confetti script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    // Setup confetti
     const confettiCanvas = document.getElementById('confetti-canvas');
     const confettiInstance = confetti.create(confettiCanvas, { resize: true });
 
     function launchConfetti() {
       confettiInstance({
-        particleCount: 100,
+        particleCount: 120,
         spread: 70,
         origin: { y: 0.6 }
       });
     }
 
-    // Launch confetti once when page loads
+    // Confetti on load
     window.onload = launchConfetti;
 
-    // Guest table lookup
+    // Guest table search logic
     let guestData = {};
     fetch('students.json')
       .then(response => response.json())
@@ -144,7 +177,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti(); // 🎉 Confetti on successful match!
+          launchConfetti(); // Confetti on match
         });
         suggestions.appendChild(div);
       });

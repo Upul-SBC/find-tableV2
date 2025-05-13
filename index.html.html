@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Your Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+    input {
+      padding: 0.5em;
+      font-size: 1.2em;
+      width: 300px;
+    }
+    #result {
+      margin-top: 1em;
+      font-size: 1.5em;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Find Your Table</h1>
+  <p>Enter Student Name:</p>
+  <input type="text" id="studentInput" placeholder="Type student name..." list="studentList" autocomplete="off" />
+  <datalist id="studentList"></datalist>
+  <div id="result"></div>
+
+  <script>
+    let studentData = {};
+
+    // Load students.json
+    fetch('students.json')
+      .then(response => response.json())
+      .then(data => {
+        studentData = data;
+        const datalist = document.getElementById('studentList');
+        Object.keys(studentData).forEach(name => {
+          const option = document.createElement('option');
+          option.value = name;
+          datalist.appendChild(option);
+        });
+      });
+
+    // Show table number on input
+    document.getElementById('studentInput').addEventListener('input', function () {
+      const name = this.value.trim();
+      const result = document.getElementById('result');
+      if (studentData[name]) {
+        result.textContent = `Table Number: ${studentData[name]}`;
+      } else {
+        result.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>

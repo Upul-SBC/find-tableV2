@@ -9,49 +9,103 @@
       text-align: center;
       padding: 2em;
     }
-    input {
+    #studentInput {
       padding: 0.5em;
       font-size: 1.2em;
       width: 300px;
+    }
+    #suggestions {
+      margin: 0 auto;
+      width: 300px;
+      text-align: left;
+      border: 1px solid #ccc;
+      border-top: none;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+      position: absolute;
+      background-color: white;
+      z-index: 999;
+    }
+    .suggestion-item {
+      padding: 0.5em;
+      cursor: pointer;
+    }
+    .suggestion-item:hover {
+      background-color: #f0f0f0;
     }
     #result {
       margin-top: 1em;
       font-size: 1.5em;
       color: green;
     }
+    .input-wrapper {
+      position: relative;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
   <h1>Find Your Table</h1>
   <p>Enter Student Name:</p>
-  <input type="text" id="studentInput" placeholder="Type student name..." list="studentList" autocomplete="off" />
-  <datalist id="studentList"></datalist>
+  <div class="input-wrapper">
+    <input type="text" id="studentInput" placeholder="Type student name..." autocomplete="off" />
+    <div id="suggestions"></div>
+  </div>
   <div id="result"></div>
 
   <script>
     let studentData = {};
 
-    // Load students.json
+    // Fetch the student data
     fetch('students.json')
       .then(response => response.json())
       .then(data => {
         studentData = data;
-        const datalist = document.getElementById('studentList');
-        Object.keys(studentData).forEach(name => {
-          const option = document.createElement('option');
-          option.value = name;
-          datalist.appendChild(option);
-        });
       });
 
-    // Show table number on input
-    document.getElementById('studentInput').addEventListener('input', function () {
-      const name = this.value.trim();
-      const result = document.getElementById('result');
-      if (studentData[name]) {
-        result.textContent = `Table Number: ${studentData[name]}`;
-      } else {
-        result.textContent = '';
+    const input = document.getElementById('studentInput');
+    const suggestions = document.getElementById('suggestions');
+    const result = document.getElementById('result');
+
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLowerCase();
+      suggestions.innerHTML = '';
+
+      if (!query) {
+        suggestions.style.display = 'none';
+        return;
+      }
+
+      const matches = Object.keys(studentData).filter(name =>
+        name.toLowerCase().includes(query)
+      );
+
+      if (matches.length === 0) {
+        suggestions.style.display = 'none';
+        return;
+      }
+
+      matches.slice(0, 10).forEach(name => {
+        const div = document.createElement('div');
+        div.textContent = name;
+        div.classList.add('suggestion-item');
+        div.addEventListener('click', () => {
+          input.value = name;
+          suggestions.innerHTML = '';
+          suggestions.style.display = 'none';
+          result.textContent = `Table Number: ${studentData[name]}`;
+        });
+        suggestions.appendChild(div);
+      });
+
+      suggestions.style.display = 'block';
+    });
+
+    // Hide suggestions on outside click
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.input-wrapper')) {
+        suggestions.style.display = 'none';
       }
     });
   </script>

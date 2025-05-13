@@ -2,21 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Find Your Table</title>
+  <title>Find Your Table - Student Formal 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 2em;
+      margin: 0;
+      overflow-x: hidden;
     }
     #guestInput {
       padding: 0.5em;
       font-size: 1.2em;
-      width: 300px;
+      width: 90%;
+      max-width: 300px;
     }
     #suggestions {
       margin: 0 auto;
-      width: 300px;
+      width: 90%;
+      max-width: 300px;
       text-align: left;
       border: 1px solid #ccc;
       border-top: none;
@@ -43,6 +48,29 @@
       position: relative;
       display: inline-block;
     }
+    .evening-message {
+      margin-top: 3em;
+      font-size: 2em;
+      font-weight: bold;
+      background: linear-gradient(to right, #ff4e50, #f9d423, #4facfe, #00f2fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      padding: 1em;
+    }
+    @media (max-width: 600px) {
+      .evening-message {
+        font-size: 1.5em;
+        padding: 0.5em;
+      }
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
@@ -54,10 +82,31 @@
   </div>
   <div id="result"></div>
 
-  <script>
-    let guestData = {};
+  <div class="evening-message">Have a Wonderful Evening</div>
 
-    // Fetch the guest data
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Confetti script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Setup confetti
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiInstance = confetti.create(confettiCanvas, { resize: true });
+
+    function launchConfetti() {
+      confettiInstance({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Launch confetti once when page loads
+    window.onload = launchConfetti;
+
+    // Guest table lookup
+    let guestData = {};
     fetch('students.json')
       .then(response => response.json())
       .then(data => {
@@ -95,6 +144,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
+          launchConfetti(); // 🎉 Confetti on successful match!
         });
         suggestions.appendChild(div);
       });
@@ -102,7 +152,6 @@
       suggestions.style.display = 'block';
     });
 
-    // Hide suggestions on outside click
     document.addEventListener('click', e => {
       if (!e.target.closest('.input-wrapper')) {
         suggestions.style.display = 'none';

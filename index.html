@@ -9,7 +9,7 @@
       text-align: center;
       padding: 2em;
     }
-    #studentInput {
+    #guestInput {
       padding: 0.5em;
       font-size: 1.2em;
       width: 300px;
@@ -47,24 +47,24 @@
 </head>
 <body>
   <h1>Find Your Table</h1>
-  <p>Enter Student Name:</p>
+  <p>Enter Guest Name:</p>
   <div class="input-wrapper">
-    <input type="text" id="studentInput" placeholder="Type student name..." autocomplete="off" />
+    <input type="text" id="guestInput" placeholder="Type guest name..." autocomplete="off" />
     <div id="suggestions"></div>
   </div>
   <div id="result"></div>
 
   <script>
-    let studentData = {};
+    let guestData = {};
 
-    // Fetch the student data
+    // Fetch the guest data
     fetch('students.json')
       .then(response => response.json())
       .then(data => {
-        studentData = data;
+        guestData = data;
       });
 
-    const input = document.getElementById('studentInput');
+    const input = document.getElementById('guestInput');
     const suggestions = document.getElementById('suggestions');
     const result = document.getElementById('result');
 
@@ -77,7 +77,7 @@
         return;
       }
 
-      const matches = Object.keys(studentData).filter(name =>
+      const matches = Object.keys(guestData).filter(name =>
         name.toLowerCase().includes(query)
       );
 
@@ -94,7 +94,7 @@
           input.value = name;
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
-          result.textContent = `Table Number: ${studentData[name]}`;
+          result.textContent = `Table Number: ${guestData[name]}`;
         });
         suggestions.appendChild(div);
       });

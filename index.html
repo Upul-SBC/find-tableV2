@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Find Your Table - Student Formal 2025</title>
+  <title>Find Your Table - SBC Formal 2025</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -11,9 +11,13 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/StBrendansChapel1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
-    /* Animated SBC Banner */
     .banner {
       font-size: 2em;
       font-weight: bold;
@@ -86,6 +90,15 @@
       padding: 1em;
     }
 
+    .logo {
+      margin-top: 3em;
+    }
+
+    .logo img {
+      width: 150px;
+      max-width: 80%;
+    }
+
     @media (max-width: 600px) {
       .banner {
         font-size: 1.5em;
@@ -118,6 +131,11 @@
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
+  <!-- SBC Logo at bottom -->
+  <div class="logo">
+    <img src="https://www.stbrendans.qld.edu.au/_file/media/1537/sbc-logo.svg" alt="St Brendan's College Logo">
+  </div>
+
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
 
@@ -135,10 +153,10 @@
       });
     }
 
-    // Confetti on load
+    // Confetti on page load
     window.onload = launchConfetti;
 
-    // Guest table search logic
+    // Guest name lookup
     let guestData = {};
     fetch('students.json')
       .then(response => response.json())
@@ -177,7 +195,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti(); // Confetti on match
+          launchConfetti(); // 🎉 Confetti on match
         });
         suggestions.appendChild(div);
       });

@@ -69,7 +69,7 @@
     #result {
       margin-top: 1em;
       font-size: 1.5em;
-      color: #0D47A1; /* Changed from green to deep navy blue */
+      color: #0D47A1; /* Deep blue for better contrast */
       font-weight: bold;
     }
 
@@ -94,7 +94,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(255, 255, 255, 0.6); /* semi-transparent white */
+      background-color: rgba(255, 255, 255, 0.6);
       border-radius: 15px;
       z-index: -1;
     }
@@ -106,7 +106,7 @@
     .logo img {
       width: 150px;
       max-width: 80%;
-      filter: drop-shadow(0 0 10px white); /* Optional styling tweak */
+      filter: drop-shadow(0 0 10px white);
     }
 
     @media (max-width: 600px) {
@@ -178,6 +178,7 @@
     input.addEventListener('input', () => {
       const query = input.value.trim().toLowerCase();
       suggestions.innerHTML = '';
+      result.textContent = ''; // Clear result when typing or deleting
 
       if (!query) {
         suggestions.style.display = 'none';

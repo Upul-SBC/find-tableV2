@@ -11,10 +11,8 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/StBrendansChapel1.jpg');
+      background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
       background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
       background-attachment: fixed;
     }
 
@@ -131,9 +129,9 @@
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
-  <!-- SBC Logo at bottom -->
+  <!-- SBC Logo at bottom (local) -->
   <div class="logo">
-    <img src="https://www.stbrendans.qld.edu.au/_file/media/1537/sbc-logo.svg" alt="St Brendan's College Logo">
+    <img src="sbc-logo.png" alt="St Brendan's College Logo">
   </div>
 
   <!-- Confetti canvas -->
@@ -153,10 +151,8 @@
       });
     }
 
-    // Confetti on page load
     window.onload = launchConfetti;
 
-    // Guest name lookup
     let guestData = {};
     fetch('students.json')
       .then(response => response.json())
@@ -195,7 +191,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti(); // 🎉 Confetti on match
+          launchConfetti();
         });
         suggestions.appendChild(div);
       });

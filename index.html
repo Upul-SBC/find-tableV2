@@ -11,23 +11,15 @@
       font-family: Arial, sans-serif;
       overflow-x: hidden;
       height: 100%;
+      position: relative;
     }
 
     body {
-      position: relative;
-      text-align: center;
-      padding: 2em;
-      background: none;
-    }
-
-    .background-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       background: linear-gradient(to bottom, #1b5e20 0%, #a5d6a7 40%, #ffffff 90%);
-      z-index: 0;
+      text-align: center;
+      padding: 2em 1em 0 1em;
+      position: relative;
+      z-index: 1;
     }
 
     .banner {
@@ -37,8 +29,6 @@
       background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
       color: white;
       animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
-      position: relative;
-      z-index: 2;
     }
 
     @keyframes slideDown {
@@ -52,8 +42,8 @@
     }
 
     h1, p, #result {
-      position: relative;
       z-index: 2;
+      position: relative;
     }
 
     #guestInput {
@@ -101,7 +91,7 @@
     }
 
     .evening-message {
-      margin-top: 3em;
+      margin: 3em auto 1em auto;
       font-size: 2em;
       font-weight: bold;
       background: linear-gradient(to right, #ff4e50, #f9d423, #4facfe, #00f2fe);
@@ -109,8 +99,8 @@
       -webkit-text-fill-color: transparent;
       display: inline-block;
       padding: 1em;
-      position: relative;
       z-index: 2;
+      position: relative;
     }
 
     .evening-message::before {
@@ -123,23 +113,21 @@
     }
 
     .bottom-image {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 2em;
-      position: relative;
-      z-index: 2;
+      z-index: 1;
       pointer-events: none;
     }
 
     .bottom-image img {
-      width: 60%;
-      max-width: 600px;
+      width: 100%;
       height: auto;
-      object-fit: contain;
+      object-fit: cover;
       display: block;
-      mask-image: linear-gradient(to top, black 80%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
+      mask-image: linear-gradient(to top, black 75%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 75%, transparent 100%);
     }
 
     @media (max-width: 600px) {
@@ -150,10 +138,6 @@
       .evening-message {
         font-size: 1.5em;
         padding: 0.5em;
-      }
-
-      .bottom-image img {
-        width: 80%;
       }
     }
 
@@ -167,8 +151,6 @@
   </style>
 </head>
 <body>
-  <div class="background-layer"></div>
-
   <div class="banner">🎓 SBC Formal 2025 🎉</div>
 
   <h1>Find Your Table</h1>

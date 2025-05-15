@@ -25,6 +25,8 @@
       background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
       color: white;
       animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
+      z-index: 2;
+      position: relative;
     }
 
     @keyframes slideDown {
@@ -78,6 +80,7 @@
     .input-wrapper {
       position: relative;
       display: inline-block;
+      z-index: 2;
     }
 
     .evening-message {
@@ -90,6 +93,7 @@
       display: inline-block;
       padding: 1em;
       position: relative;
+      z-index: 2;
     }
 
     .evening-message::before {
@@ -106,9 +110,10 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      overflow: hidden;
-      z-index: 10;
+      height: auto;
+      z-index: 3;
       pointer-events: none;
+      overflow: hidden;
     }
 
     .bottom-image img {
@@ -116,9 +121,9 @@
       height: auto;
       display: block;
       object-fit: cover;
-      transform: translateY(75%); /* Show only the bottom 25% */
-      mask-image: linear-gradient(to top, black, transparent);
-      -webkit-mask-image: linear-gradient(to top, black, transparent);
+      transform: translateY(65%); /* Adjust this to show more or less of the image */
+      mask-image: linear-gradient(to top, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
     }
 
     @media (max-width: 600px) {

@@ -11,10 +11,10 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background: url('bottom.png') no-repeat center bottom;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent), url('bottom.png') no-repeat center bottom;
       background-size: cover;
       background-attachment: fixed;
-      background-color: #000; /* Fallback if image fails */
+      background-color: #000; /* fallback */
     }
 
     .banner {
@@ -100,19 +100,6 @@
       z-index: -1;
     }
 
-    .bottom-image {
-      width: 100%;
-      position: relative;
-      margin-top: 3em;
-    }
-
-    .bottom-image img {
-      width: 100%;
-      display: block;
-      mask-image: linear-gradient(to top, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
-    }
-
     @media (max-width: 600px) {
       .banner {
         font-size: 1.5em;
@@ -144,11 +131,6 @@
   <div id="result"></div>
 
   <div class="evening-message">Have a Wonderful Evening</div>
-
-  <!-- Optional: Fade-enhanced version of bottom.png -->
-  <div class="bottom-image">
-    <img src="bottom.png" alt="Decorative Bottom Image">
-  </div>
 
   <canvas id="confetti-canvas"></canvas>
 

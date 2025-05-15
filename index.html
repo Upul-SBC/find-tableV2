@@ -124,21 +124,22 @@
 
     .bottom-image {
       width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 2em;
       position: relative;
-      margin-top: 4em;
-      z-index: 1;
+      z-index: 2;
       pointer-events: none;
     }
 
     .bottom-image img {
-      width: 100%;
+      width: 60%;
+      max-width: 600px;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
-      max-height: 25vh;
-      margin-top: -5vh;
-      mask-image: linear-gradient(to top, black 0%, transparent 90%);
-      -webkit-mask-image: linear-gradient(to top, black 0%, transparent 90%);
+      mask-image: linear-gradient(to top, black 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
     }
 
     @media (max-width: 600px) {
@@ -149,6 +150,10 @@
       .evening-message {
         font-size: 1.5em;
         padding: 0.5em;
+      }
+
+      .bottom-image img {
+        width: 80%;
       }
     }
 

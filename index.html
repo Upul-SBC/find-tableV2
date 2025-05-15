@@ -15,7 +15,7 @@
       background-size: cover;
       background-attachment: fixed;
       position: relative;
-      min-height: 100vh;
+      z-index: 1;
     }
 
     .banner {
@@ -106,15 +106,19 @@
       bottom: 0;
       left: 0;
       width: 100%;
+      overflow: hidden;
       z-index: 10;
       pointer-events: none;
-      mask-image: linear-gradient(to top, black 20%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 20%, transparent 100%);
     }
 
     .bottom-image img {
       width: 100%;
+      height: auto;
       display: block;
+      object-fit: cover;
+      transform: translateY(75%); /* Show only the bottom 25% */
+      mask-image: linear-gradient(to top, black, transparent);
+      -webkit-mask-image: linear-gradient(to top, black, transparent);
     }
 
     @media (max-width: 600px) {
@@ -149,7 +153,7 @@
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
-  <!-- Bottom image with gradient fade-up -->
+  <!-- Bottom image -->
   <div class="bottom-image">
     <img src="bottom.png" alt="Decorative Bottom Image">
   </div>

@@ -11,10 +11,9 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent), url('bottom.png') no-repeat center bottom;
+      background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
       background-size: cover;
       background-attachment: fixed;
-      background-color: #000; /* fallback */
     }
 
     .banner {
@@ -70,7 +69,7 @@
     #result {
       margin-top: 1em;
       font-size: 1.5em;
-      color: #0D47A1;
+      color: #0D47A1; /* Deep blue for better contrast */
       font-weight: bold;
     }
 
@@ -98,6 +97,19 @@
       background-color: rgba(255, 255, 255, 0.6);
       border-radius: 15px;
       z-index: -1;
+    }
+
+    .bottom-image {
+      width: 100%;
+      position: relative;
+      margin-top: 3em;
+    }
+
+    .bottom-image img {
+      width: 100%;
+      display: block;
+      mask-image: linear-gradient(to top, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
     }
 
     @media (max-width: 600px) {
@@ -132,8 +144,15 @@
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
+  <!-- Bottom image -->
+  <div class="bottom-image">
+    <img src="bottom.png" alt="Decorative Bottom Image">
+  </div>
+
+  <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
 
+  <!-- Confetti script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const confettiCanvas = document.getElementById('confetti-canvas');
@@ -163,7 +182,7 @@
     input.addEventListener('input', () => {
       const query = input.value.trim().toLowerCase();
       suggestions.innerHTML = '';
-      result.textContent = '';
+      result.textContent = ''; // Clear result when typing or deleting
 
       if (!query) {
         suggestions.style.display = 'none';
@@ -188,7 +207,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti();
+          launchConfetti(); // Confetti on match
         });
         suggestions.appendChild(div);
       });

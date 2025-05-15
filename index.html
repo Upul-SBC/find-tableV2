@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Table - SBC Formal 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
-    }
-
     body {
-      background: linear-gradient(to bottom, #1b5e20 0%, #a5d6a7 40%, #ffffff 90%);
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #1b5e20 0%, #a5d6a7 40%, #ffffff 100%);
       text-align: center;
-      padding-bottom: 220px; /* to make space for the bottom image */
     }
 
     .banner {
@@ -26,214 +18,47 @@
       padding: 1em;
       background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
       color: white;
-      animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
-    }
-
-    @keyframes slideDown {
-      0% { transform: translateY(-100%); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(10px); }
-    }
-
-    #guestInput {
-      padding: 0.5em;
-      font-size: 1.2em;
-      width: 90%;
-      max-width: 300px;
-    }
-
-    .input-wrapper {
-      position: relative;
-      display: inline-block;
-      z-index: 2;
-    }
-
-    #suggestions {
-      position: absolute;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-top: none;
-      max-height: 200px;
-      overflow-y: auto;
-      display: none;
-      background-color: white;
-      z-index: 10;
-    }
-
-    .suggestion-item {
-      padding: 0.5em;
-      cursor: pointer;
-    }
-
-    .suggestion-item:hover {
-      background-color: #f0f0f0;
-    }
-
-    #result {
-      margin-top: 1em;
-      font-size: 1.5em;
-      color: #0D47A1;
-      font-weight: bold;
     }
 
     .evening-message {
-      margin: 3em auto 1em auto;
+      margin: 3em auto 2em auto;
       font-size: 2em;
       font-weight: bold;
       background: linear-gradient(to right, #ff4e50, #f9d423, #4facfe, #00f2fe);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: inline-block;
-      padding: 1em;
-      z-index: 2;
+    }
+
+    .bottom-image-container {
+      width: 100%;
+      height: 120px;
+      overflow: hidden;
       position: relative;
     }
 
-    .evening-message::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(255, 255, 255, 0.6);
-      border-radius: 15px;
-      z-index: -1;
-    }
-
-    .bottom-image {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 200px;
-      z-index: 1;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .bottom-image img {
+    .bottom-image-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      mask-image: linear-gradient(to top, black 80%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
       display: block;
-    }
-
-    @media (max-width: 600px) {
-      .banner {
-        font-size: 1.5em;
-      }
-
-      .evening-message {
-        font-size: 1.5em;
-        padding: 0.5em;
-      }
-
-      .bottom-image {
-        height: 150px;
-      }
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 1000;
+      -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
+      mask-image: linear-gradient(to top, black 80%, transparent 100%);
     }
   </style>
 </head>
 <body>
+
   <div class="banner">🎓 SBC Formal 2025 🎉</div>
 
   <h1>Find Your Table</h1>
-  <p>Enter Guest Name:</p>
 
-  <div class="input-wrapper">
-    <input type="text" id="guestInput" placeholder="Type guest name..." autocomplete="off" />
-    <div id="suggestions"></div>
-  </div>
-
-  <div id="result"></div>
+  <!-- Input field and other elements here if needed -->
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
-  <div class="bottom-image">
-    <img src="bottom.png" alt="Bottom Decoration" />
+  <div class="bottom-image-container">
+    <img src="bottom.png" alt="Decorative Bottom Image" />
   </div>
 
-  <canvas id="confetti-canvas"></canvas>
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    const confettiCanvas = document.getElementById('confetti-canvas');
-    const confettiInstance = confetti.create(confettiCanvas, { resize: true });
-
-    function launchConfetti() {
-      confettiInstance({
-        particleCount: 120,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-    }
-
-    window.onload = launchConfetti;
-
-    let guestData = {};
-    fetch('students.json')
-      .then(response => response.json())
-      .then(data => {
-        guestData = data;
-      });
-
-    const input = document.getElementById('guestInput');
-    const suggestions = document.getElementById('suggestions');
-    const result = document.getElementById('result');
-
-    input.addEventListener('input', () => {
-      const query = input.value.trim().toLowerCase();
-      suggestions.innerHTML = '';
-      result.textContent = '';
-
-      if (!query) {
-        suggestions.style.display = 'none';
-        return;
-      }
-
-      const matches = Object.keys(guestData).filter(name =>
-        name.toLowerCase().includes(query)
-      );
-
-      if (matches.length === 0) {
-        suggestions.style.display = 'none';
-        return;
-      }
-
-      matches.slice(0, 10).forEach(name => {
-        const div = document.createElement('div');
-        div.textContent = name;
-        div.classList.add('suggestion-item');
-        div.addEventListener('click', () => {
-          input.value = name;
-          suggestions.innerHTML = '';
-          suggestions.style.display = 'none';
-          result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti();
-        });
-        suggestions.appendChild(div);
-      });
-
-      suggestions.style.display = 'block';
-    });
-
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.input-wrapper')) {
-        suggestions.style.display = 'none';
-      }
-    });
-  </script>
 </body>
 </html>

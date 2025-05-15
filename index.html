@@ -5,11 +5,12 @@
   <title>Find Your Table - SBC Formal 2025</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 2em;
-      margin: 0;
       overflow-x: hidden;
       background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
       background-size: cover;
@@ -69,7 +70,7 @@
     #result {
       margin-top: 1em;
       font-size: 1.5em;
-      color: #0D47A1; /* Deep blue for better contrast */
+      color: #0D47A1;
       font-weight: bold;
     }
 
@@ -100,16 +101,19 @@
     }
 
     .bottom-image {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      position: relative;
-      margin-top: 3em;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .bottom-image img {
       width: 100%;
       display: block;
-      mask-image: linear-gradient(to top, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
+      mask-image: linear-gradient(to top, black 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
     }
 
     @media (max-width: 600px) {
@@ -182,7 +186,7 @@
     input.addEventListener('input', () => {
       const query = input.value.trim().toLowerCase();
       suggestions.innerHTML = '';
-      result.textContent = ''; // Clear result when typing or deleting
+      result.textContent = '';
 
       if (!query) {
         suggestions.style.display = 'none';
@@ -207,7 +211,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti(); // Confetti on match
+          launchConfetti();
         });
         suggestions.appendChild(div);
       });

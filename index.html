@@ -14,6 +14,7 @@
       background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
       background-size: cover;
       background-attachment: fixed;
+      position: relative;
     }
 
     .banner {
@@ -69,7 +70,7 @@
     #result {
       margin-top: 1em;
       font-size: 1.5em;
-      color: #0D47A1; /* Deep blue for better contrast */
+      color: #0D47A1;
       font-weight: bold;
     }
 
@@ -99,14 +100,15 @@
       z-index: -1;
     }
 
-    .logo {
-      margin-top: 3em;
-    }
-
-    .logo img {
-      width: 150px;
-      max-width: 80%;
-      filter: drop-shadow(0 0 10px white);
+    .bottom-image {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+      position: relative;
+      display: block;
+      margin-top: 4em;
     }
 
     @media (max-width: 600px) {
@@ -141,9 +143,8 @@
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
-  <div class="logo">
-    <img src="sbc-logo.jpg" alt="St Brendan's College Logo">
-  </div>
+  <!-- Replaced logo with bottom image -->
+  <img src="bottom.png" alt="Decorative bottom image" class="bottom-image">
 
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
@@ -178,7 +179,7 @@
     input.addEventListener('input', () => {
       const query = input.value.trim().toLowerCase();
       suggestions.innerHTML = '';
-      result.textContent = ''; // Clear result when typing or deleting
+      result.textContent = '';
 
       if (!query) {
         suggestions.style.display = 'none';
@@ -203,7 +204,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti(); // Confetti on match
+          launchConfetti();
         });
         suggestions.appendChild(div);
       });

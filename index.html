@@ -14,7 +14,6 @@
       background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
       background-size: cover;
       background-attachment: fixed;
-      position: relative;
     }
 
     .banner {
@@ -70,7 +69,7 @@
     #result {
       margin-top: 1em;
       font-size: 1.5em;
-      color: #0D47A1;
+      color: #0D47A1; /* Deep blue for better contrast */
       font-weight: bold;
     }
 
@@ -102,13 +101,15 @@
 
     .bottom-image {
       width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
       position: relative;
+      margin-top: 3em;
+    }
+
+    .bottom-image img {
+      width: 100%;
       display: block;
-      margin-top: 4em;
+      mask-image: linear-gradient(to top, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
     }
 
     @media (max-width: 600px) {
@@ -143,8 +144,10 @@
 
   <div class="evening-message">Have a Wonderful Evening</div>
 
-  <!-- Replaced logo with bottom image -->
-  <img src="bottom.png" alt="Decorative bottom image" class="bottom-image">
+  <!-- Bottom image -->
+  <div class="bottom-image">
+    <img src="bottom.png" alt="Decorative Bottom Image">
+  </div>
 
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
@@ -179,7 +182,7 @@
     input.addEventListener('input', () => {
       const query = input.value.trim().toLowerCase();
       suggestions.innerHTML = '';
-      result.textContent = '';
+      result.textContent = ''; // Clear result when typing or deleting
 
       if (!query) {
         suggestions.style.display = 'none';
@@ -204,7 +207,7 @@
           suggestions.innerHTML = '';
           suggestions.style.display = 'none';
           result.textContent = `Table Number: ${guestData[name]}`;
-          launchConfetti();
+          launchConfetti(); // Confetti on match
         });
         suggestions.appendChild(div);
       });

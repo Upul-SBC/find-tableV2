@@ -8,27 +8,26 @@
     html, body {
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
       font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      height: 100%;
     }
 
-    /* Green gradient background layer */
+    body {
+      position: relative;
+      text-align: center;
+      padding: 2em;
+      background: none;
+    }
+
     .background-layer {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
+      background: linear-gradient(to bottom, #1b5e20 0%, #a5d6a7 40%, #ffffff 90%);
       z-index: 0;
-    }
-
-    /* Main content container */
-    .content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 2em;
     }
 
     .banner {
@@ -38,6 +37,8 @@
       background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
       color: white;
       animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes slideDown {
@@ -48,6 +49,11 @@
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(10px); }
+    }
+
+    h1, p, #result {
+      position: relative;
+      z-index: 2;
     }
 
     #guestInput {
@@ -91,6 +97,7 @@
     .input-wrapper {
       position: relative;
       display: inline-block;
+      z-index: 2;
     }
 
     .evening-message {
@@ -116,27 +123,33 @@
     }
 
     .bottom-image {
-      position: fixed;
-      bottom: 0;
-      left: 0;
       width: 100%;
-      z-index: 1; /* Above background, below content */
+      position: relative;
+      margin-top: 4em;
+      z-index: 1;
       pointer-events: none;
     }
 
     .bottom-image img {
       width: 100%;
+      height: auto;
       object-fit: cover;
-      transform: translateY(30%); /* Raise it up */
-      mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
-      mask-size: 100% 100%;
-      mask-repeat: no-repeat;
+      display: block;
+      max-height: 25vh;
+      margin-top: -5vh;
+      mask-image: linear-gradient(to top, black 0%, transparent 90%);
+      -webkit-mask-image: linear-gradient(to top, black 0%, transparent 90%);
     }
 
     @media (max-width: 600px) {
-      .banner { font-size: 1.5em; }
-      .evening-message { font-size: 1.5em; padding: 0.5em; }
+      .banner {
+        font-size: 1.5em;
+      }
+
+      .evening-message {
+        font-size: 1.5em;
+        padding: 0.5em;
+      }
     }
 
     canvas {
@@ -149,32 +162,28 @@
   </style>
 </head>
 <body>
-
-  <!-- Background layer behind everything -->
   <div class="background-layer"></div>
 
-  <!-- Main content -->
-  <div class="content">
-    <div class="banner">🎓 SBC Formal 2025 🎉</div>
+  <div class="banner">🎓 SBC Formal 2025 🎉</div>
 
-    <h1>Find Your Table</h1>
-    <p>Enter Guest Name:</p>
-    <div class="input-wrapper">
-      <input type="text" id="guestInput" placeholder="Type guest name..." autocomplete="off" />
-      <div id="suggestions"></div>
-    </div>
-    <div id="result"></div>
+  <h1>Find Your Table</h1>
+  <p>Enter Guest Name:</p>
 
-    <div class="evening-message">Have a Wonderful Evening</div>
+  <div class="input-wrapper">
+    <input type="text" id="guestInput" placeholder="Type guest name..." autocomplete="off" />
+    <div id="suggestions"></div>
   </div>
 
-  <!-- Decorative bottom image with fade -->
+  <div id="result"></div>
+
+  <div class="evening-message">Have a Wonderful Evening</div>
+
   <div class="bottom-image">
-    <img src="bottom.png" alt="Bottom Decoration" />
+    <img src="bottom.png" alt="Decorative Bottom Image">
   </div>
 
-  <!-- Confetti -->
   <canvas id="confetti-canvas"></canvas>
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const confettiCanvas = document.getElementById('confetti-canvas');
@@ -193,7 +202,9 @@
     let guestData = {};
     fetch('students.json')
       .then(response => response.json())
-      .then(data => { guestData = data; });
+      .then(data => {
+        guestData = data;
+      });
 
     const input = document.getElementById('guestInput');
     const suggestions = document.getElementById('suggestions');

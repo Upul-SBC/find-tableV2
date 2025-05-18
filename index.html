@@ -11,7 +11,7 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
+      background: linear-gradient(to bottom, #ffc72c 50%, #115740 50%);
       background-size: cover;
       background-attachment: fixed;
       position: relative;
@@ -19,35 +19,17 @@
     }
 
     .banner {
-      font-size: 2em;
-      font-weight: bold;
-      padding: 1em;
-      background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
-      color: white;
-      animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
-      z-index: 2;
+      width: 100%;
+      max-height: 200px;
+      overflow: hidden;
       position: relative;
+      z-index: 2;
     }
 
-    @keyframes slideDown {
-      0% {
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes bounce {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(10px);
-      }
+    .banner img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
     }
 
     #guestInput {
@@ -93,32 +75,22 @@
     .input-wrapper {
       position: relative;
       display: inline-block;
-      z-index: 2;
+      z-index: 3;
     }
 
-    /* Updated evening message style - no box, colorful gradient text */
     .evening-message {
-      margin-top: 3em;
+      margin-top: 6em;
       font-size: 2em;
       font-weight: bold;
-      background: linear-gradient(
-        to right,
-        #ff4e50,
-        #f9d423,
-        #4facfe,
-        #00f2fe
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-      padding: 0;
-      position: relative;
-      z-index: 2;
-      /* Removed background-color and border-radius */
-      /* Removed ::before pseudo element */
+      color: #115740;
+      display: block;
+      position: absolute;
+      top: 300px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
     }
 
-    /* Push evening message down if #result has content */
     #result:not(:empty) + .evening-message {
       margin-top: 2em;
     }
@@ -149,12 +121,9 @@
     }
 
     @media (max-width: 600px) {
-      .banner {
-        font-size: 1.5em;
-      }
       .evening-message {
         font-size: 1.5em;
-        padding: 0.5em 0;
+        top: 250px;
       }
     }
 
@@ -168,7 +137,10 @@
   </style>
 </head>
 <body>
-  <div class="banner">🎓 SBC Formal 2025 🎉</div>
+  <!-- Replaced banner -->
+  <div class="banner">
+    <img src="Banner.png" alt="SBC Formal Banner">
+  </div>
 
   <h1>Find Your Table</h1>
   <p>Enter Guest Name:</p>
@@ -184,9 +156,9 @@
 
   <div id="result"></div>
 
+  <!-- Evening Message moved behind input/search -->
   <div class="evening-message">Have a Wonderful Evening</div>
 
-  <!-- Bottom image with shaped fade -->
   <div class="bottom-image">
     <img src="bottom.png" alt="Decorative Bottom Image" />
   </div>
@@ -194,7 +166,6 @@
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Confetti script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const confettiCanvas = document.getElementById("confetti-canvas");

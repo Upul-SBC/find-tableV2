@@ -17,36 +17,20 @@
     }
 
     .banner {
-      font-size: 2em;
-      font-weight: bold;
       padding: 1em;
+      background-color: white;
       background-image: url('Banner.png');
-      background-size: cover;
+      background-size: contain;
+      background-repeat: no-repeat;
       background-position: center;
       color: white;
-      animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
       z-index: 2;
       position: relative;
-    }
-
-    @keyframes slideDown {
-      0% {
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(10px);
-      }
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5em;
     }
 
     h1 {
@@ -86,7 +70,7 @@
 
     #result {
       margin-top: 2em;
-      font-size: 2.5em;
+      font-size: 3em;
       color: white;
       font-weight: bold;
       position: relative;
@@ -110,10 +94,11 @@
 
     @media (max-width: 600px) {
       .banner {
-        font-size: 1.5em;
+        font-size: 2em;
+        height: 120px;
       }
       #result {
-        font-size: 2em;
+        font-size: 2.2em;
       }
       .logo-image {
         width: 120px;
@@ -130,7 +115,8 @@
   </style>
 </head>
 <body>
-  <div class="banner">🎓 SBC Formal 2025 🎉</div>
+  <!-- Only emoji in banner; background handled via Banner.png -->
+  <div class="banner">🎓 🎉</div>
 
   <h1>Find Your Table</h1>
   <p style="color:white;">Enter Guest Name:</p>
@@ -146,13 +132,13 @@
 
   <div id="result"></div>
 
-  <!-- Bottom centered logo -->
+  <!-- Logo at the bottom -->
   <img src="logo.png" alt="SBC Logo" class="logo-image" />
 
-  <!-- Confetti canvas -->
+  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Confetti script -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const confettiCanvas = document.getElementById("confetti-canvas");

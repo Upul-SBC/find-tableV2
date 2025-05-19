@@ -22,8 +22,10 @@
       font-size: 2em;
       font-weight: bold;
       padding: 1em;
-      background-color: white;
-      color: black;
+      background-image: url('banner.png');
+      background-size: cover;
+      background-position: center;
+      color: white;
       animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
       z-index: 2;
       position: relative;
@@ -86,7 +88,7 @@
 
     #result {
       margin-top: 2em;
-      font-size: 2.5em;
+      font-size: 3.5em; /* Bigger table text */
       color: white;
       font-weight: bold;
       position: relative;
@@ -104,7 +106,7 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 150px;
+      width: 160px;
       z-index: 3;
       pointer-events: none;
     }
@@ -119,7 +121,7 @@
         font-size: 1.5em;
       }
       #result {
-        font-size: 2em;
+        font-size: 2.5em;
       }
     }
 
@@ -211,7 +213,7 @@
           input.value = name;
           suggestions.innerHTML = "";
           suggestions.style.display = "none";
-          result.textContent = guestData[name]; // ✅ Displays only "Table 14"
+          result.textContent = guestData[name]; // shows "Table 14"
           launchConfetti();
         });
         suggestions.appendChild(div);

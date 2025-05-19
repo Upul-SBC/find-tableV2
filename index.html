@@ -17,20 +17,14 @@
     }
 
     .banner {
-      padding: 1em;
+      height: 100px; /* Reduced height */
       background-color: white;
       background-image: url('Banner.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      color: white;
-      z-index: 2;
       position: relative;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5em;
+      z-index: 2;
     }
 
     h1 {
@@ -85,21 +79,22 @@
 
     .logo-image {
       position: fixed;
-      bottom: 20px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       width: 150px;
-      z-index: 3;
+      z-index: 1; /* Behind other elements */
     }
 
     @media (max-width: 600px) {
       .banner {
-        font-size: 2em;
-        height: 120px;
+        height: 70px;
       }
+
       #result {
         font-size: 2.2em;
       }
+
       .logo-image {
         width: 120px;
       }
@@ -115,8 +110,8 @@
   </style>
 </head>
 <body>
-  <!-- Only emoji in banner; background handled via Banner.png -->
-  <div class="banner">🎓 🎉</div>
+  <!-- Banner without text or emojis -->
+  <div class="banner"></div>
 
   <h1>Find Your Table</h1>
   <p style="color:white;">Enter Guest Name:</p>
@@ -132,7 +127,7 @@
 
   <div id="result"></div>
 
-  <!-- Logo at the bottom -->
+  <!-- Bottom-fixed logo that does NOT cover other content -->
   <img src="logo.png" alt="SBC Logo" class="logo-image" />
 
   <!-- Confetti Canvas -->

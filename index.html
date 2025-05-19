@@ -11,24 +11,20 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background-color: #115740; /* Green background */
+      background-color: #115740;
       position: relative;
       z-index: 1;
     }
 
     .banner {
-      height: 100px; /* Reduced height */
       background-color: white;
-      background-image: url('Banner.png');
+      height: 120px;
+      background-image: url("Banner.png");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
       position: relative;
       z-index: 2;
-    }
-
-    h1 {
-      color: white;
     }
 
     #guestInput {
@@ -64,7 +60,7 @@
 
     #result {
       margin-top: 2em;
-      font-size: 3em;
+      font-size: 2.5em;
       color: white;
       font-weight: bold;
       position: relative;
@@ -82,22 +78,9 @@
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 150px;
-      z-index: 1; /* Behind other elements */
-    }
-
-    @media (max-width: 600px) {
-      .banner {
-        height: 70px;
-      }
-
-      #result {
-        font-size: 2.2em;
-      }
-
-      .logo-image {
-        width: 120px;
-      }
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
     }
 
     canvas {
@@ -107,14 +90,26 @@
       pointer-events: none;
       z-index: 1000;
     }
+
+    @media (max-width: 600px) {
+      .banner {
+        height: 80px;
+      }
+      #result {
+        font-size: 2em;
+      }
+      .logo-image {
+        width: 80px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Banner without text or emojis -->
   <div class="banner"></div>
 
-  <h1>Find Your Table</h1>
-  <p style="color:white;">Enter Guest Name:</p>
+  <h1 style="color: white;">Find Your Table</h1>
+  <p style="color: white;">Enter Guest Name:</p>
+
   <div class="input-wrapper">
     <input
       type="text"
@@ -127,13 +122,10 @@
 
   <div id="result"></div>
 
-  <!-- Bottom-fixed logo that does NOT cover other content -->
-  <img src="logo.png" alt="SBC Logo" class="logo-image" />
+  <img src="logo.png" alt="Logo" class="logo-image" />
 
-  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const confettiCanvas = document.getElementById("confetti-canvas");
@@ -146,6 +138,8 @@
         origin: { y: 0.6 },
       });
     }
+
+    window.onload = launchConfetti;
 
     let guestData = {};
     fetch("students.json")
@@ -185,7 +179,7 @@
           input.value = name;
           suggestions.innerHTML = "";
           suggestions.style.display = "none";
-          result.textContent = `Table ${guestData[name]}`;
+          result.textContent = guestData[name]; // Already includes "Table 14"
           launchConfetti();
         });
         suggestions.appendChild(div);

@@ -11,9 +11,7 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background-color: #115740;
-      background-size: cover;
-      background-attachment: fixed;
+      background-color: #115740; /* Green background */
       position: relative;
       z-index: 1;
     }
@@ -22,7 +20,7 @@
       font-size: 2em;
       font-weight: bold;
       padding: 1em;
-      background-image: url('banner.png');
+      background-image: url('Banner.png');
       background-size: cover;
       background-position: center;
       color: white;
@@ -88,7 +86,7 @@
 
     #result {
       margin-top: 2em;
-      font-size: 3.5em; /* Bigger table text */
+      font-size: 2.5em;
       color: white;
       font-weight: bold;
       position: relative;
@@ -101,19 +99,13 @@
       z-index: 2;
     }
 
-    .bottom-image {
+    .logo-image {
       position: fixed;
-      bottom: 0;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 160px;
+      width: 150px;
       z-index: 3;
-      pointer-events: none;
-    }
-
-    .bottom-image img {
-      width: 100%;
-      display: block;
     }
 
     @media (max-width: 600px) {
@@ -121,7 +113,10 @@
         font-size: 1.5em;
       }
       #result {
-        font-size: 2.5em;
+        font-size: 2em;
+      }
+      .logo-image {
+        width: 120px;
       }
     }
 
@@ -138,7 +133,7 @@
   <div class="banner">🎓 SBC Formal 2025 🎉</div>
 
   <h1>Find Your Table</h1>
-  <p style="color: white;">Enter Guest Name:</p>
+  <p style="color:white;">Enter Guest Name:</p>
   <div class="input-wrapper">
     <input
       type="text"
@@ -151,10 +146,8 @@
 
   <div id="result"></div>
 
-  <!-- Logo at the bottom center -->
-  <div class="bottom-image">
-    <img src="logo.png" alt="" />
-  </div>
+  <!-- Bottom centered logo -->
+  <img src="logo.png" alt="SBC Logo" class="logo-image" />
 
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
@@ -172,8 +165,6 @@
         origin: { y: 0.6 },
       });
     }
-
-    window.onload = launchConfetti;
 
     let guestData = {};
     fetch("students.json")
@@ -213,7 +204,7 @@
           input.value = name;
           suggestions.innerHTML = "";
           suggestions.style.display = "none";
-          result.textContent = guestData[name]; // shows "Table 14"
+          result.textContent = `Table ${guestData[name]}`;
           launchConfetti();
         });
         suggestions.appendChild(div);

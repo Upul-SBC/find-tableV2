@@ -19,7 +19,7 @@
     }
 
     .banner {
-      background-color: #ffc72c;
+      background-color: #ffffff;
       padding: 1em 0;
       position: relative;
       z-index: 2;
@@ -85,31 +85,6 @@
       z-index: 2;
     }
 
-    .bottom-image {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .bottom-image img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      transform: translateY(40%);
-      mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-      -webkit-mask-image: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0) 100%
-      );
-      mask-size: 100% 80%;
-      mask-repeat: no-repeat;
-    }
-
     .footer-logo {
       position: fixed;
       bottom: 20px;
@@ -119,13 +94,17 @@
     }
 
     .footer-logo img {
-      width: 100px;
+      width: 150px;
       height: auto;
     }
 
     @media (max-width: 600px) {
       h1 {
         font-size: 1.5em;
+      }
+
+      .footer-logo img {
+        width: 120px;
       }
     }
 
@@ -156,11 +135,6 @@
   </div>
 
   <div id="result"></div>
-
-  <!-- Bottom image with shaped fade -->
-  <div class="bottom-image">
-    <img src="bottom.png" alt="Decorative Bottom Image" />
-  </div>
 
   <!-- Footer logo -->
   <div class="footer-logo">

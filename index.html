@@ -11,7 +11,7 @@
       padding: 2em;
       margin: 0;
       overflow-x: hidden;
-      background: linear-gradient(to bottom, #ffc72c 50%, #115740 50%);
+      background-color: #115740;
       background-size: cover;
       background-attachment: fixed;
       position: relative;
@@ -19,17 +19,24 @@
     }
 
     .banner {
-      width: 100%;
-      max-height: 200px;
-      overflow: hidden;
+      background-color: #ffc72c;
+      padding: 1em 0;
       position: relative;
       z-index: 2;
     }
 
     .banner img {
       width: 100%;
+      max-width: 600px;
       height: auto;
-      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      font-size: 2em;
+      margin-top: 1em;
     }
 
     #guestInput {
@@ -66,7 +73,7 @@
     #result {
       margin-top: 1em;
       font-size: 1.5em;
-      color: #0d47a1;
+      color: #ffffff;
       font-weight: bold;
       position: relative;
       z-index: 2;
@@ -75,24 +82,7 @@
     .input-wrapper {
       position: relative;
       display: inline-block;
-      z-index: 3;
-    }
-
-    .evening-message {
-      margin-top: 6em;
-      font-size: 2em;
-      font-weight: bold;
-      color: #115740;
-      display: block;
-      position: absolute;
-      top: 300px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    #result:not(:empty) + .evening-message {
-      margin-top: 2em;
+      z-index: 2;
     }
 
     .bottom-image {
@@ -100,7 +90,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      z-index: 3;
+      z-index: 1;
       pointer-events: none;
       overflow: hidden;
     }
@@ -120,10 +110,22 @@
       mask-repeat: no-repeat;
     }
 
+    .footer-logo {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .footer-logo img {
+      width: 100px;
+      height: auto;
+    }
+
     @media (max-width: 600px) {
-      .evening-message {
+      h1 {
         font-size: 1.5em;
-        top: 250px;
       }
     }
 
@@ -137,13 +139,12 @@
   </style>
 </head>
 <body>
-  <!-- Replaced banner -->
   <div class="banner">
-    <img src="Banner.png" alt="SBC Formal Banner">
+    <img src="Banner.png" alt="SBC Formal 2025 Banner" />
   </div>
 
   <h1>Find Your Table</h1>
-  <p>Enter Guest Name:</p>
+  <p style="color: white;">Enter Guest Name:</p>
   <div class="input-wrapper">
     <input
       type="text"
@@ -156,16 +157,20 @@
 
   <div id="result"></div>
 
-  <!-- Evening Message moved behind input/search -->
-  <div class="evening-message">Have a Wonderful Evening</div>
-
+  <!-- Bottom image with shaped fade -->
   <div class="bottom-image">
     <img src="bottom.png" alt="Decorative Bottom Image" />
+  </div>
+
+  <!-- Footer logo -->
+  <div class="footer-logo">
+    <img src="logo.png" alt="SBC Logo" />
   </div>
 
   <!-- Confetti canvas -->
   <canvas id="confetti-canvas"></canvas>
 
+  <!-- Confetti script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const confettiCanvas = document.getElementById("confetti-canvas");

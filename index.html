@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="color-scheme" content="light only" />
   <title>Find Your Table - SBC Formal 2025</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
@@ -15,11 +14,10 @@
       background-color: #115740;
       position: relative;
       z-index: 1;
-      color: white;
     }
 
     .banner {
-      background-color: white !important;
+      background-color: white;
       height: 120px;
       background-image: url("Banner.png");
       background-size: contain;
@@ -62,7 +60,8 @@
 
     #result {
       margin-top: 2em;
-      font-size: 3em;
+      font-size: 3em; /* Increased font size */
+      color: white;
       font-weight: bold;
       position: relative;
       z-index: 2;
@@ -79,7 +78,7 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 130px;
+      width: 130px; /* Increased from 100px */
       z-index: 2;
       pointer-events: none;
     }
@@ -103,33 +102,13 @@
         width: 100px;
       }
     }
-
-    @media (prefers-color-scheme: dark) {
-      .banner {
-        background-color: white !important;
-      }
-
-      body {
-        background-color: #115740 !important;
-        color: white !important;
-      }
-
-      #suggestions {
-        background-color: white;
-        color: black;
-      }
-
-      .suggestion-item:hover {
-        background-color: #e0e0e0;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="banner"></div>
 
-  <h1>Find Your Table</h1>
-  <p>Enter Guest Name:</p>
+  <h1 style="color: white;">Find Your Table</h1>
+  <p style="color: white;">Enter Guest Name:</p>
 
   <div class="input-wrapper">
     <input
@@ -200,7 +179,7 @@
           input.value = name;
           suggestions.innerHTML = "";
           suggestions.style.display = "none";
-          result.textContent = guestData[name];
+          result.textContent = guestData[name]; // Already includes "Table 14"
           launchConfetti();
         });
         suggestions.appendChild(div);

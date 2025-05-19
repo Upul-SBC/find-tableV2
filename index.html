@@ -19,24 +19,38 @@
     }
 
     .banner {
-      background-color: #ffffff;
-      padding: 1em 0;
-      position: relative;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em;
+      background-color: white;
+      color: black;
+      animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
       z-index: 2;
+      position: relative;
     }
 
-    .banner img {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+    @keyframes slideDown {
+      0% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(10px);
+      }
     }
 
     h1 {
       color: white;
-      font-size: 2em;
-      margin-top: 1em;
     }
 
     #guestInput {
@@ -71,9 +85,9 @@
     }
 
     #result {
-      margin-top: 1em;
-      font-size: 3em;
-      color: #ffffff;
+      margin-top: 2em;
+      font-size: 2.5em;
+      color: white;
       font-weight: bold;
       position: relative;
       z-index: 2;
@@ -85,28 +99,25 @@
       z-index: 2;
     }
 
-    .footer-logo {
+    .bottom-image {
       position: fixed;
-      bottom: 20px;
+      bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10;
+      width: 150px;
+      z-index: 3;
+      pointer-events: none;
     }
 
-    .footer-logo img {
-      width: 150px;
-      height: auto;
+    .bottom-image img {
+      width: 100%;
+      display: block;
     }
 
     @media (max-width: 600px) {
-      h1 {
+      .banner {
         font-size: 1.5em;
       }
-
-      .footer-logo img {
-        width: 120px;
-      }
-
       #result {
         font-size: 2em;
       }
@@ -122,9 +133,7 @@
   </style>
 </head>
 <body>
-  <div class="banner">
-    <img src="Banner.png" alt="SBC Formal 2025 Banner" />
-  </div>
+  <div class="banner">🎓 SBC Formal 2025 🎉</div>
 
   <h1>Find Your Table</h1>
   <p style="color: white;">Enter Guest Name:</p>
@@ -140,9 +149,9 @@
 
   <div id="result"></div>
 
-  <!-- Footer logo -->
-  <div class="footer-logo">
-    <img src="logo.png" alt="SBC Logo" />
+  <!-- Logo at the bottom center -->
+  <div class="bottom-image">
+    <img src="logo.png" alt="" />
   </div>
 
   <!-- Confetti canvas -->
@@ -202,7 +211,7 @@
           input.value = name;
           suggestions.innerHTML = "";
           suggestions.style.display = "none";
-          result.textContent = `Table ${guestData[name]}`;
+          result.textContent = guestData[name]; // ✅ Displays only "Table 14"
           launchConfetti();
         });
         suggestions.appendChild(div);

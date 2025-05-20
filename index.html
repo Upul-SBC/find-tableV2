@@ -17,7 +17,7 @@
     }
 
     .banner {
-      background-color: #ffffff;
+      background-color: white;
       height: 120px;
       background-image: url("Banner.png");
       background-size: contain;
@@ -25,8 +25,6 @@
       background-position: center;
       position: relative;
       z-index: 2;
-      margin-bottom: 1.5em; /* Added spacing below the banner */
-      box-shadow: 0 0 0 9999px #ffffff; /* Forces white fill on sides in dark mode */
     }
 
     #guestInput {
@@ -62,7 +60,7 @@
 
     #result {
       margin-top: 2em;
-      font-size: 3em;
+      font-size: 3em; /* Increased font size */
       color: white;
       font-weight: bold;
       position: relative;
@@ -80,7 +78,7 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 130px;
+      width: 130px; /* Increased from 100px */
       z-index: 2;
       pointer-events: none;
     }
@@ -181,7 +179,7 @@
           input.value = name;
           suggestions.innerHTML = "";
           suggestions.style.display = "none";
-          result.textContent = guestData[name];
+          result.textContent = guestData[name]; // Already includes "Table 14"
           launchConfetti();
         });
         suggestions.appendChild(div);

@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Find Your Table - SBC Formal 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 2em;
       margin: 0;
-      overflow-x: hidden;
-      background-color: #115740;
-      position: relative;
-      z-index: 1;
+      background: linear-gradient(135deg, #004d40, #1de9b6, #a5d6a7);
     }
 
     .banner {
-      background-color: white;
-      height: 120px;
-      background-image: url("Banner.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      position: relative;
-      z-index: 2;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em;
+      background: linear-gradient(to right, #00f2fe, #4facfe, #f9d423, #ff4e50);
+      color: white;
+      animation: slideDown 1s ease-out, bounce 1.2s ease-out 1s;
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
     }
 
     #guestInput {
-      padding: 0.5em;
+      padding: 0.6em;
       font-size: 1.2em;
       width: 90%;
-      max-width: 300px;
+      max-width: 320px;
     }
 
     #suggestions {
       margin: 0 auto;
       width: 90%;
-      max-width: 300px;
+      max-width: 320px;
       text-align: left;
       border: 1px solid #ccc;
-      border-top: none;
       max-height: 200px;
       overflow-y: auto;
       display: none;
       position: absolute;
-      background-color: white;
+      background: white;
       z-index: 999;
     }
 
@@ -55,32 +60,40 @@
     }
 
     .suggestion-item:hover {
-      background-color: #f0f0f0;
+      background: #f0f0f0;
     }
 
     #result {
-      margin-top: 2em;
-      font-size: 3em; /* Increased font size */
-      color: white;
+      margin-top: 1em;
+      font-size: 1.6em;
+      color: #0D47A1;
       font-weight: bold;
-      position: relative;
-      z-index: 2;
+      line-height: 1.6;
     }
 
     .input-wrapper {
       position: relative;
       display: inline-block;
-      z-index: 2;
     }
 
-    .logo-image {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 130px; /* Increased from 100px */
-      z-index: 2;
-      pointer-events: none;
+    .evening-message {
+      margin-top: 3em;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em;
+      background: rgba(255,255,255,0.7);
+      border-radius: 15px;
+      display: inline-block;
+    }
+
+    .logo {
+      margin-top: 3em;
+    }
+
+    .logo img {
+      width: 150px;
+      max-width: 80%;
+      filter: drop-shadow(0 0 10px white);
     }
 
     canvas {
@@ -88,111 +101,124 @@
       top: 0;
       left: 0;
       pointer-events: none;
-      z-index: 1000;
-    }
-
-    @media (max-width: 600px) {
-      .banner {
-        height: 80px;
-      }
-      #result {
-        font-size: 2.5em;
-      }
-      .logo-image {
-        width: 100px;
-      }
     }
   </style>
 </head>
-<body>
-  <div class="banner"></div>
 
-  <h1 style="color: white;">Find Your Table</h1>
-  <p style="color: white;">Enter Guest Name:</p>
+<body>
+
+  <div class="banner">🎓 SBC Formal 2025 🎉</div>
+
+  <h1>Find Your Table</h1>
+  <p>Enter Guest Name:</p>
 
   <div class="input-wrapper">
-    <input
-      type="text"
-      id="guestInput"
-      placeholder="Type guest name..."
-      autocomplete="off"
-    />
+    <input type="text" id="guestInput" placeholder="Type guest name..." autocomplete="off">
     <div id="suggestions"></div>
   </div>
 
   <div id="result"></div>
 
-  <img src="logo.png" alt="Logo" class="logo-image" />
+  <div class="evening-message">Have a Wonderful Evening</div>
+
+  <div class="logo">
+    <img src="sbc-logo.jpg" alt="SBC Logo">
+  </div>
 
   <canvas id="confetti-canvas"></canvas>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <script>
-    const confettiCanvas = document.getElementById("confetti-canvas");
+    const confettiCanvas = document.getElementById('confetti-canvas');
     const confettiInstance = confetti.create(confettiCanvas, { resize: true });
 
     function launchConfetti() {
       confettiInstance({
         particleCount: 120,
         spread: 70,
-        origin: { y: 0.6 },
+        origin: { y: 0.6 }
       });
     }
 
     window.onload = launchConfetti;
 
     let guestData = {};
-    fetch("students.json")
-      .then((response) => response.json())
-      .then((data) => {
+
+    fetch('students.json')
+      .then(res => res.json())
+      .then(data => {
         guestData = data;
       });
 
-    const input = document.getElementById("guestInput");
-    const suggestions = document.getElementById("suggestions");
-    const result = document.getElementById("result");
+    const input = document.getElementById('guestInput');
+    const suggestions = document.getElementById('suggestions');
+    const result = document.getElementById('result');
 
-    input.addEventListener("input", () => {
+    function formatResult(value) {
+      const tableMatch = value.match(/Table\s*(\d+)/i);
+      const groupMatch = value.match(/Group\s*([A-Z])/i);
+
+      let output = '';
+
+      if (tableMatch) {
+        output += `Table Number: ${tableMatch[1]}`;
+      } else {
+        output += value;
+      }
+
+      if (groupMatch) {
+        output += `<br>Group: ${groupMatch[1]}`;
+      }
+
+      return output;
+    }
+
+    input.addEventListener('input', () => {
       const query = input.value.trim().toLowerCase();
-      suggestions.innerHTML = "";
-      result.textContent = "";
+      suggestions.innerHTML = '';
+      result.innerHTML = ''; // clear result
 
       if (!query) {
-        suggestions.style.display = "none";
+        suggestions.style.display = 'none';
         return;
       }
 
-      const matches = Object.keys(guestData).filter((name) =>
+      const matches = Object.keys(guestData).filter(name =>
         name.toLowerCase().includes(query)
       );
 
       if (matches.length === 0) {
-        suggestions.style.display = "none";
+        suggestions.style.display = 'none';
         return;
       }
 
-      matches.slice(0, 10).forEach((name) => {
-        const div = document.createElement("div");
+      matches.slice(0, 10).forEach(name => {
+        const div = document.createElement('div');
         div.textContent = name;
-        div.classList.add("suggestion-item");
-        div.addEventListener("click", () => {
+        div.classList.add('suggestion-item');
+
+        div.addEventListener('click', () => {
           input.value = name;
-          suggestions.innerHTML = "";
-          suggestions.style.display = "none";
-          result.textContent = guestData[name]; // Already includes "Table 14"
+          suggestions.innerHTML = '';
+          suggestions.style.display = 'none';
+
+          result.innerHTML = formatResult(guestData[name]);
           launchConfetti();
         });
+
         suggestions.appendChild(div);
       });
 
-      suggestions.style.display = "block";
+      suggestions.style.display = 'block';
     });
 
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".input-wrapper")) {
-        suggestions.style.display = "none";
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.input-wrapper')) {
+        suggestions.style.display = 'none';
       }
     });
   </script>
+
 </body>
 </html>

@@ -191,9 +191,12 @@
         return;
       }
 
-      const matches = Object.keys(guestData).filter((name) =>
-        name.toLowerCase().includes(query)
-      );
+     const matches = Object.keys(guestData).filter((name) => {
+  const nameLower = name.toLowerCase();
+  const queryParts = query.split(" ").filter(Boolean);
+
+  return queryParts.every(part => nameLower.includes(part));
+});
 
       if (matches.length === 0) {
         suggestions.style.display = "none";
